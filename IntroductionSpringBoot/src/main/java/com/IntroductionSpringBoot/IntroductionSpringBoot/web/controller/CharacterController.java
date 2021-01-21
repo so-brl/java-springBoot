@@ -11,53 +11,53 @@ import java.util.List;
 
 
 
-@Api(tags ={"Gestion des personnages"},description = "Permet la gestion de tous les personnages")
-//@Api(description = "Gestion des personnages")
-//@Api(tags = {"Gestion des personnages"}, description = "Get, put, post and delete de personnages"))
+@Api(tags ={"Gestion des Characters"},description = "Permet la gestion de tous les Characters")
+//@Api(description = "Gestion des Characters")
+//@Api(tags = {"Gestion des Characters"}, description = "Get, put, post and delete de Characters"))
 //@SwaggerDefinition(tags = {
-//        @Tag(name = "Gestion des personnages", description = "Get, put, post and delete de personnages")
+//        @Tag(name = "Gestion des Characters", description = "Get, put, post and delete de Characters")
 //})
 @RestController
-public class PersonnagesController {
+public class CharacterController {
 
     @Autowired
     private CharacterDao characterDao;
 
-    //Personnages
-    @ApiOperation(notes = "La fonction **listePersonnages()** permet de lister tous les personnages.", value = "Récupèrer la liste des personnages", nickname = "listePersonnages",  tags = "Liste personnages" )
-    @GetMapping(value = "/Personnages")
-    public List<Character> listePersonnages() {
+    //Characters
+    @ApiOperation(notes = "La fonction **listeCharacters()** permet de lister tous les Characters.", value = "Récupèrer la liste des Characters", nickname = "listeCharacters",  tags = "Liste Characters" )
+    @GetMapping(value = "/Characters")
+    public List<Character> listeCharacters() {
         return characterDao.findAll();
     }
 
-    //Personnages/{id}
+    //Characters/{id}
     @ApiOperation(notes = "La fonction **findById()** permet d'afficher les informations liées à un personnage grâce à son ID.", value = "Récupèrer un personnage selon son ID", nickname = " findById",  tags = "Afficher personnage" )
-    @GetMapping(value = "/Personnages/{id}")
-    @RequestMapping(value = "/Personnages/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/Characters/{id}")
+    @RequestMapping(value = "/Characters/{id}", method = RequestMethod.GET)
     public Character findById(@PathVariable int id) {
         //Récupérer un personnage par son Id
         return characterDao.findById(id);
     }
 
-    //Personnages
+    //Characters
     @ApiOperation(notes = "La fonction **save()** permet d'ajouter un personnage.", value = "Ajouter un personnage", nickname = "save",  tags = "Ajouter personnage" )
-    @PostMapping(value = "/Personnages")
-    @RequestMapping(value = "/Personnages", method = RequestMethod.POST)
+    @PostMapping(value = "/Characters")
+    @RequestMapping(value = "/Characters", method = RequestMethod.POST)
     public Character save(@RequestBody Character character) {
         return characterDao.save(character);
     }
 
-    //Personnages/{id}
+    //Characters/{id}
     @ApiOperation(notes = "La fonction **updPersonnage()** permet de mêttre à jour les informations d'un personnage selon son ID.", value = "Modifier un personnage", nickname = "updPersonnage",  tags = "Modifier personnage" )
-    @PutMapping(value = "/Personnages/{id}")
+    @PutMapping(value = "/Characters/{id}")
     public Character updPersonnage(@PathVariable int id, @RequestBody Character character) {
       characterDao.updPersonnage(id, character);
       return character;
     }
 
-    //Personnages/{id}
+    //Characters/{id}
     @ApiOperation(notes = "La fonction **delete()** permet de supprimer un personnage selon son ID.", value = "Supprimer un personnage", nickname = "delete",  tags = "Supprimer personnage" )
-    @DeleteMapping (value = "/Personnages/{id}")
+    @DeleteMapping (value = "/Characters/{id}")
     public void delete(@PathVariable int id) {
     characterDao.delete(id);
     }

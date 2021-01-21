@@ -1,6 +1,10 @@
 package com.IntroductionSpringBoot.IntroductionSpringBoot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Random;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 
 public class Character {
     private int id;
