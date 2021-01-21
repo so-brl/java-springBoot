@@ -8,6 +8,7 @@
 <body>
 <h1>Character List</h1>
 <a th:href="@{/addCharacter}">Add a Character</a>
+<a th:href="@{/delCharacter}">Delete a Character</a>
 <h2 th:utext="${message}">..!..</h2>
 <br/><br/>
 <div>
@@ -21,6 +22,9 @@
             <td th:utext="${character.id}">...</td>
             <td th:utext="${character.name}">...</td>
             <td th:utext="${character.type}">...</td>
+            <td>
+                <a th:href="@{/delCharacter/{id}(id=${character.id})}">Delete</a>
+            </td>
         </tr>
     </table>
 </div>
