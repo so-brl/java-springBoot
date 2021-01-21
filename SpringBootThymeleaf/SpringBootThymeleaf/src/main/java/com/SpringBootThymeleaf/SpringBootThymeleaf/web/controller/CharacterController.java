@@ -73,6 +73,7 @@ public class CharacterController {
     }
 
 
+
     @GetMapping (value = "/delCharacter/{id}")
     public String deleteCharacter(Model model, @PathVariable(value = "id") int id){
         String url = "http://127.0.0.1:8081/Characters/{id}";
