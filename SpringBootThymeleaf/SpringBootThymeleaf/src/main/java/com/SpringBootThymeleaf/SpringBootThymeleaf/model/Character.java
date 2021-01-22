@@ -12,6 +12,14 @@ public class Character {
     public Character() {
 
     }
+
+
+    public Character(int id) {
+        this.id = id;
+        this.name = getName();
+        this.type = getType();
+    }
+
     public Character(String name, Type type) {
         Random rand = new Random();
         this.id = rand.nextInt(1000 - 100 + 1) + 100;;

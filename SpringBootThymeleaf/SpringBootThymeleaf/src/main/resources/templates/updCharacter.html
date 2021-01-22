@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Add Character</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Update a Character:</h1>
+<div>
+    <h3>Actual Name : </h3>
+    <p th:utext="${character.name}">...</p>
+</div>
+<form th:action="@{/updCharacter/{id}(id=${character.id})}"
+      th:object="${characterForm}" method="POST">
+        <h3>New Name:</h3>
+        <input type="text" th:field="*{name}" th:value="${character.name}"/>
+        <br/>
+
+    <div>
+        <h3>Actual Type : </h3>
+        <p th:utext="${character.type}">...</p>
+        <br/>
+        <h3>New Type:</h3>
+        <select name="type">
+            <option th:each="typeOPT : ${T(com.SpringBootThymeleaf.SpringBootThymeleaf.model.Type).values()}"
+                    th:value="${typeOPT}" th:text="${typeOPT.displayValue}"></option>
+        </select>
+    </div>
+
+
+
+
+    <br/>
+    <input type="submit" value="Update" />
+</form>
+
+<br/>
+
+<!-- Check if errorMessage is not null and not empty -->
+
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color:red;font-style:italic;">
+    ...
+</div>
+
+</body>
+</html>

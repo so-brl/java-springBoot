@@ -35,6 +35,9 @@ public class CharacterController {
     private String listMessage;
 
 
+    @Value("${upd.message}")
+    private String updMessage;
+
     @GetMapping(value = {"/", "/index"})
     public String index(Model model) {
         model.addAttribute("message", message);
@@ -48,6 +51,16 @@ public class CharacterController {
         model.addAttribute("characters", characterList);
         model.addAttribute("message", listMessage);
         return characterList;
+    }
+
+
+    @GetMapping(value = {"/seeCharacter/{id}"})
+    public String showCharacter(Model model,@PathVariable(value = "id") int id) {
+        String url = "http://127.0.0.1:8081/Characters/"+id;
+       Character character = restTemplate.getForObject(url, Character.class);
+        model.addAttribute("character", character);
+        model.addAttribute("message", updMessage);
+        return "seeCharacter";
     }
 
     @GetMapping(value = "/addCharacter")
@@ -74,6 +87,7 @@ public class CharacterController {
 
 
 
+
     @GetMapping (value = "/delCharacter/{id}")
     public String deleteCharacter(Model model, @PathVariable(value = "id") int id){
         String url = "http://127.0.0.1:8081/Characters/{id}";
@@ -83,6 +97,30 @@ public class CharacterController {
         }
         model.addAttribute("errorMessage", errorMessage);
         return "delCharacter/{id}";
+    }
+
+
+    @GetMapping(value = "/updCharacter/{id}")
+    public String showupdCharacterPage(Model model, @PathVariable(value = "id") int id) {
+        String url = "http://127.0.0.1:8081/Characters/"+id;
+       Character character =  restTemplate.getForObject(url,Character.class);
+        CharacterForm characterForm = new CharacterForm();
+        model.addAttribute("character", character);
+        model.addAttribute("characterForm", characterForm);
+        return "updCharacter";
+    }
+
+    @PostMapping(value = "/updCharacter/{id}")
+    public String updCharacter(Model model,@ModelAttribute Character character, @PathVariable(value = "id") int id){
+        String url = "http://127.0.0.1:8081/UpdCharacters/"+id;
+       String name = character.getName();
+       Type type  = character.getType();
+        if (name != null && name.length() > 0 && type != null ) {
+            restTemplate.put(url,character,Character.class,id);
+            return "redirect:/characterList";
+        }
+        model.addAttribute("errorMessage", errorMessage);
+        return "updCharacter/{id}";
     }
 
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>See Character</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Update a character </h1>
+<a th:href="@{/addCharacter}">Add a Character</a>
+<a th:href="@{/delCharacter}">Delete a Character</a>
+<a th:href="@{/index}">Characters list</a>
+<h2 th:utext="${message}">..!..</h2>
+<br/><br/>
+<div>
+    <div>
+        <h3>Actual Name : </h3>
+        <p th:utext="${character.name}">...</p>
+    </div>
+    <div>
+        <h3>Actual Type : </h3>
+        <p th:utext="${character.type}">...</p>
+    </div>
+    <a th:href="@{/updCharacter/{id}(id=${character.id})}">Update</a>
+</div>
+</body>
+</html>

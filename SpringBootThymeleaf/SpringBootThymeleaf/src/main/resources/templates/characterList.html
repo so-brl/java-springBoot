@@ -23,7 +23,10 @@
             <td th:utext="${character.name}">...</td>
             <td th:utext="${character.type}">...</td>
             <td>
+                <a th:href="@{/seeCharacter/{id}(id=${character.id})}">See</a>
+                <a th:href="@{/updCharacter/{id}(id=${character.id})}">Update</a>
                 <a th:href="@{/delCharacter/{id}(id=${character.id})}">Delete</a>
+
             </td>
         </tr>
     </table>
