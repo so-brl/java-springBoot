@@ -4,65 +4,96 @@ import com.IntroductionSpringBoot.IntroductionSpringBoot.model.Character;
 import com.IntroductionSpringBoot.IntroductionSpringBoot.model.Type;
 import org.springframework.stereotype.Repository;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class CharacterDaolmpl implements CharacterDao {
 
-
-    public static List<Character> characters = new ArrayList<>();
-
-    static {
-        characters.add(new Character(1, "Dilcec Silentsurge", Type.WIZZARD));
-        characters.add(new Character(2, "Lukhoth Rainshard", Type.WIZZARD));
-        characters.add(new Character(3, "Gicauc Hazestride", Type.WIZZARD));
-        characters.add(new Character(4, "Nenis Amberhand", Type.WIZZARD));
-        characters.add(new Character(5, "Vunic Fellsorrow", Type.WIZZARD));
-        characters.add(new Character(6, "Sthiaktae Silentfall", Type.WARRIOR));
-        characters.add(new Character(7, "Thrare The Abandoned", Type.WARRIOR));
-        characters.add(new Character(8, "Fheda The Magnificent", Type.WARRIOR));
-        characters.add(new Character(9, "Vrakza Cinderstrength", Type.WARRIOR));
-        characters.add(new Character(10, "Kragi The Beast", Type.WARRIOR));
-        characters.add(new Character(11, "Kragi  El Kiki", Type.WARRIOR));
-    }
-
     @Override
     public List<Character> findAll() {
-        return characters;
+        ArrayList<Character> characterList = new ArrayList();
+        try {
+            Connection con = JDBCConnection.getInstance();
+            Statement stmt = con.createStatement();
+            ResultSet rs= stmt.executeQuery("SELECT * from personnages");
+
+            while (rs.next()){
+                Character character = new Character(rs.getInt(1), rs.getString(2), Type.valueOf(rs.getString(3)));
+                characterList.add(character);
+
+            }
+        }catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
+        return characterList;
     }
 
     @Override
     public Character findById(int id) {
-        for (Character character : characters) {
-            if (character.getId() == id) {
-                return character;
+        Character character = new Character();
+        try {
+            Connection con = JDBCConnection.getInstance();
+            Statement stmt = con.createStatement();
+            ResultSet rs= stmt.executeQuery("SELECT * FROM `personnages` WHERE `id`= " + id);
+            while (rs.next()){
+                character.setId(rs.getInt("id"));
+                character.setName(rs.getString("name"));
+                character.setType(Type.valueOf(rs.getString("type")));
             }
+        }catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
         }
-        return null;
-    }
-
-    @Override
-    public Character save(Character character) {
-        characters.add(character);
+        System.out.println(character);
         return character;
     }
 
+
     @Override
-    public Character updPersonnage(int id, Character updCharacter) {
-        for (Character character : characters) {
-            if (character.getId() == id) {
-                character.setId(updCharacter.getId());
-                character.setName(updCharacter.getName());
-                character.setType(updCharacter.getType());
-                return character;
-            }
+    public void save(Character character) {
+        String name = character.getName();
+        Type type = character.getType();
+        try {
+            Connection con = JDBCConnection.getInstance();
+            Statement stmt = con.createStatement();
+        stmt.executeUpdate("INSERT INTO personnages(NAME,TYPE) " + "VALUES ('" + name + "','" + type + "')");
+
+        }catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
         }
-        return null;
     }
+
+
+    @Override
+    public void updPersonnage(int id, Character updCharacter) {
+        String name = updCharacter.getName();
+        Type type = updCharacter.getType();
+        System.out.println(updCharacter);
+        try {
+            Connection con = JDBCConnection.getInstance();
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate("UPDATE `personnages` SET `name`='" + name + "',`type`='" + type + "'  WHERE `id`= " + id);
+        }catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+
+
+
 
     @Override
     public void delete(int id) {
-        characters.removeIf(character -> character.getId() == id);
+        try {
+            Connection con = JDBCConnection.getInstance();
+            Statement stmt = con.createStatement();
+          stmt.executeUpdate("DELETE FROM `personnages` WHERE `id`= " + id);
+        }catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
+
+
 }

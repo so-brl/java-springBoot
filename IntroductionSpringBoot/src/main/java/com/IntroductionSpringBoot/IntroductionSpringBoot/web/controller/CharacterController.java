@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 
@@ -43,16 +44,15 @@ public class CharacterController {
     @ApiOperation(notes = "La fonction **save()** permet d'ajouter un personnage.", value = "Ajouter un personnage", nickname = "save",  tags = "Ajouter personnage" )
     @PostMapping(value = "/Characters")
     @RequestMapping(value = "/Characters", method = RequestMethod.POST)
-    public Character save(@RequestBody Character character) {
-        return characterDao.save(character);
+    public void save(@RequestBody Character character) {
+       characterDao.save(character);
     }
 
     //Characters/{id}
     @ApiOperation(notes = "La fonction **updPersonnage()** permet de mêttre à jour les informations d'un personnage selon son ID.", value = "Modifier un personnage", nickname = "updPersonnage",  tags = "Modifier personnage" )
-    @PutMapping(value = "/Characters/{id}")
-    public Character updPersonnage(@PathVariable int id, @RequestBody Character character) {
+    @PutMapping(value = "/UpdCharacters/{id}")
+    public void updPersonnage(@PathVariable int id, @RequestBody Character character) {
       characterDao.updPersonnage(id, character);
-      return character;
     }
 
     //Characters/{id}
