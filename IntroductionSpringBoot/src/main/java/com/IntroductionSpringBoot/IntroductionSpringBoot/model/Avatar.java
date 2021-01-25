@@ -1,26 +1,24 @@
 package com.IntroductionSpringBoot.IntroductionSpringBoot.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.*;
 
-import java.util.Random;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
+public class Avatar {
 
-public class Character {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
+    //@OneToOne(orphanRemoval=true)
     private String name;
-    private Type type;
+    //@OneToOne(orphanRemoval=true)
+    private String type;
 
 
 
-    public Character() {
+    public Avatar() {
 
-    }
-    public Character(String name, Type type) {
-        Random rand = new Random();
-        this.id = rand.nextInt(1000 - 100 + 1) + 100;;
-        this.name = name;
-        this.type = type;
     }
 
     /**
@@ -29,7 +27,7 @@ public class Character {
      * @param name
      * @param type
      */
-    public Character(int id, String name, Type type) {
+    public Avatar(int id, String name, String type) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -72,7 +70,7 @@ public class Character {
      *
      * @return
      */
-    public Type getType() {
+    public String getType() {
         return type;
     }
 
@@ -80,7 +78,7 @@ public class Character {
      *
      * @param type
      */
-    public void setType(Type type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -90,7 +88,7 @@ public class Character {
      */
     @Override
     public String toString() {
-        return "Character{" +
+        return "Avatar{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +

@@ -15,7 +15,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.OAS_30)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.IntroductionSpringBoot.IntroductionSpringBoot"))
-                .paths(PathSelectors.regex("/Personnages.*"))
+                .paths(PathSelectors.regex("/Characters.*"))
                 .build();
     }
 

@@ -114,7 +114,7 @@ public class CharacterController {
     public String updCharacter(Model model,@ModelAttribute Character character, @PathVariable(value = "id") int id){
         String url = "http://127.0.0.1:8081/UpdCharacters/"+id;
        String name = character.getName();
-       Type type  = character.getType();
+        String type  = character.getType();
         if (name != null && name.length() > 0 && type != null ) {
             restTemplate.put(url,character,Character.class,id);
             return "redirect:/characterList";

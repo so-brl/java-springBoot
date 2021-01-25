@@ -5,7 +5,7 @@ import java.util.Random;
 public class Character {
     private int id;
     private String name;
-    private Type type;
+    private String type;
 
 
 
@@ -20,7 +20,7 @@ public class Character {
         this.type = getType();
     }
 
-    public Character(String name, Type type) {
+    public Character(String name, String type) {
         Random rand = new Random();
         this.id = rand.nextInt(1000 - 100 + 1) + 100;;
         this.name = name;
@@ -33,7 +33,7 @@ public class Character {
      * @param name
      * @param type
      */
-    public Character(int id, String name, Type type) {
+    public Character(int id, String name, String type) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -76,7 +76,7 @@ public class Character {
      *
      * @return
      */
-    public Type getType() {
+    public String getType() {
         return type;
     }
 
@@ -84,7 +84,7 @@ public class Character {
      *
      * @param type
      */
-    public void setType(Type type) {
+    public void setType(String type) {
         this.type = type;
     }
 
